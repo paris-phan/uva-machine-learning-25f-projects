@@ -98,41 +98,6 @@ See `doc/QUICKSTART.md` for detailed usage instructions and troubleshooting.
 - matplotlib >= 3.5.0
 - seaborn >= 0.12.0
 
-=======
-DJ Song Mixing Recommendation System
-Team: Ashley Wu, Bonny Koo, Nathan Suh, Leo Lee
-Course: CS 4774 Machine Learning - UVA Fall 2025
-Overview
-A machine learning system that recommends songs for seamless DJ transitions by combining music theory (BPM, harmonic key compatibility) with audio features. The system compares three approaches: rule-based DJ constraints, audio similarity, and a hybrid ML model.
-Problem Statement
-DJs spend hours finding compatible songs for mixing. This system automates the process by recommending songs that match based on:
-
-BPM compatibility (±6 BPM ideal for beatmatching)
-Key compatibility (Camelot Wheel harmonic mixing)
-Energy flow for smooth transitions
-
-Three Models
-Model 1: Rule-Based System
-Traditional DJ approach using hard constraints.
-
-Filters songs within ±6 BPM
-Requires Camelot Wheel key compatibility
-Ranks by weighted score (40% BPM, 35% Key, 20% Energy, 5% Genre)
-
-Model 2: Audio Similarity Baseline
-Content-based filtering using cosine similarity.
-
-Compares energy, valence, danceability, acousticness
-Ignores BPM/key constraints
-Finds similar-sounding songs (but often unmixable)
-
-Model 3: Hybrid ML System
-XGBoost classifier combining rules with learned patterns.
-
-Trained on 10,000 song pairs labeled by DJ rules
-Features: BPM distance, key compatibility, energy difference
-Achieves 100% train/test accuracy
-
 # Install dependencies
 pip install -r requirements.txt
 Requirements

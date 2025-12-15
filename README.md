@@ -18,7 +18,7 @@ DJs spend hours finding compatible songs for mixing. This system automates the p
 ## Project Structure
 
 ```
-team-x/
+team-28/
 ├── src/                    # All source code
 │   ├── main.py            # Main execution script
 │   ├── data_preprocessing.py
@@ -65,8 +65,8 @@ XGBoost classifier combining rules with learned patterns.
 
 ```bash
 # Clone the repository
-git clone https://github.com/oeleel/uva-machine-learning-25f-projects.git
-cd uva-machine-learning-25f-projects
+git clone https://github.com/oeleel/team-28.git
+cd team-28
 
 # Install dependencies
 pip install -r requirements.txt
@@ -119,7 +119,7 @@ python src/main.py --track_id 5SuOikwiRyPMVoIQDJUgSV
 python src/visualize_results.py
 ```
 
-This generates plots in the `plots/` directory showing:
+This generates plots in the `src/plots/` directory showing:
 - BPM distribution
 - Key distribution
 - Energy distribution

@@ -29,6 +29,9 @@ step 2: Install dependencies: pip install -r requirements.txt
 
 ## Links to our data
 https://www.kaggle.com/datasets/quanghn2001/image-mushroom-dataset?resource=download
+
+https://www.kaggle.com/datasets/marcosvolpato/edible-and-poisonous-fungi/data
+
 ## Link to our slides 
 https://www.canva.com/design/DAG5ecEw8XE/YwEtQcNrUhZ7R1tbytkU7Q/edit
 ## Project structure

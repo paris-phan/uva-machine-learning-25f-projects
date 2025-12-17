@@ -1,40 +1,34 @@
-# Multi-Dimensional Artist Profiling
+# uva-machine-learning-25f-projects
 
-## Project Summary
-This project builds comprehensive, data-driven profiles for six globally popular artists—**Drake, Kendrick Lamar, The Weeknd, Billie Eilish, Taylor Swift, and Bad Bunny**—to show that no single metric (like sentiment or popularity) can fully capture an artist’s identity. Instead, we combine **lyrical content**, **thematic structure**, **public perception**, and **temporal fame dynamics** into a unified analytical framework.
+For those who haven't submitted your project code yet, please follow the instructions below to upload your work to the course repository.
 
-## Youtube Links
-**Full Presentation:** https://youtu.be/75aeonsjKK0
+Step 1: Set up your local branch
+- Go to the course repository and click Fork: https://github.com/Qdata4Capstone/uva-machine-learning-25f-projects
+- Go to your new forked repository and clone it to your local environment:
+  - git clone https://github.com/<your-username>/uva-machine-learning-25f-projects.git
+- Navigate into the cloned folder and add the original repository as an upstream remote:
+  - git remote add upstream https://github.com/Qdata4Capstone/uva-machine-learning-25f-projects.git
 
-**Code demos of each part:**
-Lyric Sentiment: https://youtu.be/ZwsHOmrfXFE  
-Theme analysis: https://youtu.be/l7HYH53H9nw 
-Public Perception: https://youtu.be/GlcwNCH_gfM  
-Fame over time: https://youtu.be/BruqunChwj8   
+Step 2: Prepare your code:
+- For each team, please create a folder named `team-XX` corresponding to your team ID (e.g., team-1, team-11, team-111). 
+- Inside this folder, include the following:
+  - src/: A subfolder containing all source code.
+  - data/: A subfolder with the data required to reproduce results.
+    - Note: If the data cannot be uploaded, include a markdown file describing how to collect it.
+  - `requirements.txt`: A file listing required packages. (Format [reference](https://pip.pypa.io/en/stable/reference/requirements-file-format/))
+  - `README.md`: A markdown file describing the folder content. You can view an example [here](https://github.com/QData/TextAttack). Your README should include:
+    - Project Title
+    - Team ID and Members
+    - Overview: A brief introduction to the project.
+    - Usage: How to run the code to get core results.
+    - (Optional) Setup: Instructions for environment setup (if non-trivial).
+    - (Optional) Video: A link to your demo video with a brief description.
+- You are also welcome to include additional files or documentation in the folder or README.md if they help people better understand your project and code.
 
-
-## Core Components
-1. **Lyric Sentiment Analysis**  
-   - Dataset: Genius Song Lyrics  
-   - Model: `distilbert-base-uncased` (fine-tuned on SST-2)  
-   - Produces normalized, song-level sentiment distributions per artist.
-
-2. **Common Themes in Songs**  
-   - Dataset: Genius Song Lyrics  
-   - Models: Sentence-BERT (`all-mpnet-base-v2`) + K-Means  
-   - Lyrics are split into sentences, embedded, clustered, and manually labeled into interpretable themes (e.g., love, introspection, confidence, industry references).
-
-3. **Public Perception via Media**  
-   - Datasets: Twitter, Reddit, News  
-   - Models: `twitter-roberta-base-sentiment-latest`, Sentence-BERT, FAISS  
-   - Includes sentiment aggregation and a Retrieval-Augmented Generation (RAG) pipeline for question-answering over media content, evaluated with DeepEval metrics.
-
-4. **Fame Over Time**  
-   - Dataset: Spotify Global Music Dataset (2009–2025)  
-   - Model: SARIMAX  
-   - Tracks historical popularity, identifies fame spikes, and forecasts artist popularity over a 5-year horizon.
-
-## Key Insight
-By integrating NLP, clustering, RAG, and time-series forecasting, this project demonstrates that an artist’s “identity” emerges from the interaction between what they create, how audiences respond, and how their influence evolves over time.
-
-
+Step 3: Upload your code
+- Commit your changes (no requirements on the commit message)
+  - git add .
+  - git commit -m "upload project code by Team-XX"
+- Push the changes to your fork
+  - git push origin main
+- On GitHub, navigate to your fork and open a pull request via: Pull requests → New pull request

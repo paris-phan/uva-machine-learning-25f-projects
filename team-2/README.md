@@ -1,27 +1,46 @@
-# UVA Machine Learning 25F Projects – Submission Guide
+# YOLO-recycler
 
-This repository contains instructions for submitting your project code to the course repo. Follow the steps below to fork, prepare, and submit your work.
+## Team ID and Members
+Team 2: Dominic Tran (tfe2zz) and Steven Siadaty (vth3bk)
 
-## 1) Set up your local branch
-- Fork the course repository: `https://github.com/Qdata4Capstone/uva-machine-learning-25f-projects`
-- Clone your fork locally: `git clone https://github.com/<your-username>/uva-machine-learning-25f-projects.git`
-- Add the upstream remote: `git remote add upstream https://github.com/Qdata4Capstone/uva-machine-learning-25f-projects.git`
+## Overview
+This repo contains the pipeline we used to generate synthetic foregrounds/backgrounds from TrashNet, produce a YOLOv8-ready segmentation dataset, and train a single-class plastic segmentation model.
 
-## 2) Prepare your code
-In the repo root, create a folder named for your team ID (e.g., `team-1`, `team-11`, `team-111`). Inside that folder include:
-- `src/` – all source code.
-- `data/` – data required to reproduce results. If data cannot be uploaded, add a markdown file describing how to collect it.
-- `requirements.txt` – list of required packages.
-- `README.md` – include:
-  - Project Title  
-  - Team ID and Members  
-  - Overview (brief intro to the project)  
-  - Usage (how to run the code to get core results)  
-  - (Optional) Setup instructions for non-trivial environments  
-  - (Optional) Video link with a short description  
-- You may add any extra files/docs that help others understand or reproduce your work.
 
-## 3) Upload your code
-- Commit your changes: `git add .` then `git commit -m "upload project code by Team-XX"`
-- Push to your fork: `git push origin main`
-- Open a pull request from your fork to the course repo: GitHub → Pull requests → New pull request.
+## Quickstart (core results)
+- Create/activate the venv and install deps (defaults to CUDA 12.4 wheels; set `TORCH_INDEX=https://download.pytorch.org/whl/cpu` for CPU):  
+  `bash scripts/setup_venv.sh && source .venv/bin/activate`
+- The synthetic dataset used for core results is already in `data/derived/yolo_plastic/` (untar `data/derived/yolo_plastic.tar.gz` into `data/derived/` if you only see the archive).
+- Train from scratch (YOLOv8s-seg, 100 epochs, 1024px):  
+  `yolo train segment model=yolov8s-seg.pt data=data/derived/yolo_plastic/yolov8.yaml epochs=100 imgsz=1024 batch=8 project=runs/segment name=train_local`
+- Evaluate the saved checkpoint we report (`runs/segment/train8/weights/best.pt`):  
+  `yolo val segment model=runs/segment/train8/weights/best.pt data=data/derived/yolo_plastic/yolov8.yaml imgsz=1024`
+- Run inference on your own images:  
+  `yolo predict segment model=runs/segment/train8/weights/best.pt source='data/derived/yolo_plastic/images/val/*.png' imgsz=1024 save=True`
+
+## Regenerate the synthetic dataset
+If you want to rebuild the YOLO data rather than using `data/derived/yolo_plastic/`:
+1) Download TrashNet and place class folders under `data/raw/trashnet/`.  
+2) Ensure cutouts and masks exist under `data/derived/rmbg_cutouts/<class>/` and `data/derived/rmbg_masks/<class>/` (use your RMBG tool if needed; backgrounds are already under `data/raw/backgrounds/`).  
+3) Run:  
+```
+python scripts/generate_synthetic_yolo.py \
+  --classes plastic \
+  --cutouts-root data/derived/rmbg_cutouts \
+  --masks-root data/derived/rmbg_masks \
+  --backgrounds-root data/raw/backgrounds \
+  --raw-root data/raw/trashnet \
+  --out-root data/derived/yolo_plastic \
+  --num-augments 5 \
+  --max-bg-dim 1024
+```
+4) Train/validate with the generated `data/derived/yolo_plastic/yolov8.yaml` as in the quickstart above.
+
+## References
+- Dataset/config: `data/derived/yolo_plastic/yolov8.yaml`, manifests in `data/derived/yolo_plastic/`.
+- Training outputs: checkpoints and metrics under `runs/segment/train8/`.
+- More details on data synthesis: `docs/GENERATE_SYNTHETIC_DATA.md` and `docs/SYNTHETIC_DATA_PIPELINE.md`.
+
+## Video Demo links
+- Slide Deck: https://youtu.be/YcraLptXeWg
+- Code Base: https://youtu.be/L-Bif0_NOkU

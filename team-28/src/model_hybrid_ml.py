@@ -151,17 +151,21 @@ def determine_label(song1, song2):
     return 0
 
 
-def train_hybrid_model(training_data, model_path='hybrid_model.pkl'):
+def train_hybrid_model(training_data, model_path=None):
     """
     Train XGBoost model on synthetic training data.
     
     Args:
         training_data: DataFrame with features and labels
-        model_path: Path to save the trained model
+        model_path: Path to save the trained model (default: ../hybrid_model.pkl)
     
     Returns:
         Trained XGBoost model
     """
+    if model_path is None:
+        from pathlib import Path
+        base_path = Path(__file__).parent.parent
+        model_path = str(base_path / 'hybrid_model.pkl')
     print("Training XGBoost model...")
     
     # Separate features and labels
@@ -195,16 +199,21 @@ def train_hybrid_model(training_data, model_path='hybrid_model.pkl'):
     return model, feature_cols
 
 
-def load_model(model_path='hybrid_model.pkl'):
+def load_model(model_path=None):
     """
     Load a pre-trained model.
     
     Args:
-        model_path: Path to saved model
+        model_path: Path to saved model (default: ../hybrid_model.pkl)
     
     Returns:
         Tuple of (model, feature_columns) or (None, None) if not found
     """
+    if model_path is None:
+        from pathlib import Path
+        base_path = Path(__file__).parent.parent
+        model_path = str(base_path / 'hybrid_model.pkl')
+    
     if os.path.exists(model_path):
         with open(model_path, 'rb') as f:
             model = pickle.load(f)

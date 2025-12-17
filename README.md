@@ -74,12 +74,7 @@ CNN gets about 78% accuracy on 513 images. The data is imbalanced, because there
 The model is much better at recognizing “poisonous” than “edible”.
 It has 0.88 recall for poisonous, which means it correctly finds most poisonous mushrooms.
 
-
-![img.png](img.png)
-
-
 After optimization: we get to an accuracy rate around 58%. There is improvement but not a lot.
-Below is the statistics for training processes:
 
 The final validation accuracy is 0.9045 (about 90%) on 513 images.
 The confusion matrix:
@@ -97,21 +92,20 @@ MobileNetV2 is used as a fixed feature extractor. The base MobileNetV2 layers ar
 And this phase helps the new classifier learn to use the general features that MobileNetV2 already knows.
 After epoch 15, fine-tuning unfreezes some top MobileNetV2 layers. Train again, update the base model weight. 
 By comparing our testing set result and the training set result, we think there maybe a overfitting because the actual accuracy rate is much lower.
-![img_1.png](img_1.png)
-
-
-Testing Process: 
-
-
-![img_2.png](img_2.png)
-![img_3.png](img_3.png)
-
 
 Later on, we adjusted the datasets to add more images to the training set: We added an additional data set downloaded from kaggle to the model. Because in the presentation, Prof Qi said there is actually an underfitting, we try to make the model learn over more images to improve the accuracy rates for the testing set.
 Here is the result:
-
-
+We end up with a Final validation accuracy: 0.7088
+Final validation loss: 0.5469 for CNN models and for MobileNetV2, a Final validation accuracy: 0.8288
+Final validation loss: 0.3740. while the True Test Set Accuracy: 0.8067 True Test Set Loss: 0.4029. This is a huge improvement. 
+We could tell from the graphs there is less overfitting and underfitting. Also there is 
+![img.png](img.png)
+For poisonous mushrooms, the model catches 752 out of 894 poisonous, so the poisonous recall is about 84%.
+The model misses 142 out of 894 poisonous, so about 16% of poisonous are predicted as edible.
+For edible mushrooms, the model correctly identifies 350 out of 472 edible, so edible recall is about 74%.
+The model rejects 122 out of 472 edible by calling them poisonous.
+This model is reasonably accurate overall but still not very good.
 
 ## Difficulties
-Our model stucks at an accuracy rate of around 60%, which is not very good. Issues: There are biased/ insufficient data sets and an underfitting. The model cannot reach the optimum and we have a great gap between the training set and the testing set. 
-In addition, the testing set is very different from the training set. Maybe that is the problem why we obtain a lower result than we originally expected it to be.
+Our model used to stuck at an accuracy rate of around 60%, which is not very good. Issues: There are biased/ insufficient data sets and an underfitting. The model cannot reach the optimum and we have a great gap between the training set and the testing set. 
+In addition, the testing set is very different from the training set. Maybe that is the problem why we obtain a lower result than we originally expected it to have.

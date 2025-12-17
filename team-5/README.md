@@ -9,7 +9,7 @@
 
 ### Description:
 
-Gen AI has become increasingly prevalent, especially in the creative industries. While efficient with access to vast data, image generators pose risks to artists, specifically undermining their creative skills and reducing collective creative output. Our project aims to incorporate greater human involvement and autonomy in the art generation process by having a reinforcement learning agent learn an artist's style.
+Gen AI has become increasingly prevalent, especially in the creative industries. While efficient with access to vast data, image generators pose risks to artists, specifically undermining their creative skills and reducing collective creative output. Our project aims to incorporate greater human involvement and autonomy in the art generation process by having a reinforcement learning agent learn an artist's style. We implemented this rl agent by exploring Q-learning, Deep Q-learning, and policy gradient.
 
 Due to speed, we opted to code on a google collab notebook. Hence, all the imports and necessary instally can be found there.
 

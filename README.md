@@ -34,6 +34,10 @@ https://www.kaggle.com/datasets/marcosvolpato/edible-and-poisonous-fungi/data
 
 ## Link to our slides 
 https://www.canva.com/design/DAG5ecEw8XE/YwEtQcNrUhZ7R1tbytkU7Q/edit
+
+## Problem/Topic
+Identify whether a mushroom picture is toxic or edible.
+
 ## Project structure
 
 ```text
@@ -56,4 +60,58 @@ https://www.canva.com/design/DAG5ecEw8XE/YwEtQcNrUhZ7R1tbytkU7Q/edit
 
 
 
-``
+```
+## Project Motivation
+There are many mushroom poisoning outbreaks because people can’t tell whether a mushroom is toxic. As a result we were interested in exploring how far a relatively simple convolutional neural network (CNN) or/and MLP can go in performing a task realted to plant species detection. 
+Our motivation is to apply what we have learned in machine learning to address a meaningful real-world challenge. 
+Worldwide, hundreds of people die each year from wild mushroom poisoning, and experts believe the actual number is higher due to underreporting. We think that this is because human visual identification is unreliable. So maybe machines can be trained on thousands of samples and give more accurate results.
+
+## Result Analysis
+Before optimization: simple CNN logic with 3 convolution layers performs a 48% accuracy rate overall.
+Below is the statistics for training data: 
+
+CNN gets about 78% accuracy on 513 images. The data is imbalanced, because there are 376 poisonous and only 137 edible samples, so accuracy can look better than it really is.
+The model is much better at recognizing “poisonous” than “edible”.
+It has 0.88 recall for poisonous, which means it correctly finds most poisonous mushrooms.
+
+
+![img.png](img.png)
+
+
+After optimization: we get to an accuracy rate around 58%. There is improvement but not a lot.
+Below is the statistics for training processes:
+
+The final validation accuracy is 0.9045 (about 90%) on 513 images.
+The confusion matrix:
+105 edible were correctly predicted as edible.
+32 edible were wrongly predicted as poisonous.
+17 poisonous were wrongly predicted as edible.
+359 poisonous were correctly predicted as poisonous.
+
+Note:
+The red dashed line marks the moment when the model changed the training strategy.
+It is at epoch 15 because it decided to start fine-tuning after 15 epochs.
+
+Before epoch 15, the usual setup is:
+MobileNetV2 is used as a fixed feature extractor. The base MobileNetV2 layers are frozen, so their weights do not change.
+And this phase helps the new classifier learn to use the general features that MobileNetV2 already knows.
+After epoch 15, fine-tuning unfreezes some top MobileNetV2 layers. Train again, update the base model weight. 
+By comparing our testing set result and the training set result, we think there maybe a overfitting because the actual accuracy rate is much lower.
+![img_1.png](img_1.png)
+
+
+Testing Process: 
+
+
+![img_2.png](img_2.png)
+![img_3.png](img_3.png)
+
+
+Later on, we adjusted the datasets to add more images to the training set: We added an additional data set downloaded from kaggle to the model. Because in the presentation, Prof Qi said there is actually an underfitting, we try to make the model learn over more images to improve the accuracy rates for the testing set.
+Here is the result:
+
+
+
+## Difficulties
+Our model stucks at an accuracy rate of around 60%, which is not very good. Issues: There are biased/ insufficient data sets and an underfitting. The model cannot reach the optimum and we have a great gap between the training set and the testing set. 
+In addition, the testing set is very different from the training set. Maybe that is the problem why we obtain a lower result than we originally expected it to be.

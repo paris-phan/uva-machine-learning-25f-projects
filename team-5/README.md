@@ -14,3 +14,5 @@ Gen AI has become increasingly prevalent, especially in the creative industries.
 Due to speed, we opted to code on a google collab notebook. Hence, all the imports and necessary instally can be found there.
 
 - Code demo run link: https://drive.google.com/file/d/1ztj9GcXTr1e4RqEcebv-Fzs70U8VtJij/view?usp=drive_link
+
+- Collab notebook link: https://colab.research.google.com/drive/1WXxZjv8WLs2dxzdH_wkzhI0JCSH8i5Dg?usp=sharing

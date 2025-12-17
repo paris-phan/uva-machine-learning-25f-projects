@@ -21,7 +21,7 @@ export default function InventoryPage() {
 
   // get img source
   function getDriveImageSrc(fileId: string) {
-    return `https://drive.google.com/uc?export=view&id=${fileId}`;
+    return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
   }
 
   // fetch inventory items from backend 
